@@ -560,113 +560,6 @@ static BOOL cc26ControlsLayoutInProgress = NO;
 }
 %end
 
-
-%hook CCUIContentModuleContentContainerView
-- (void)layoutSubviews {
-    %orig;
-
-    BOOL opened = MSHookIvar<BOOL>(self, "_expanded");
-    BOOL containsMedia = (findSubviewOfClass(self, %c(MRUNowPlayingView)) != nil);
-    BOOL containsSlider = (findSubviewOfClass(self, %c(CCUIContinuousSliderView)) != nil);
-    BOOL containsSteppedSlider = (findSubviewOfClass(self, %c(CCUISteppedSliderView)) != nil);
-    BOOL containsFocus = (findSubviewOfClass(self, %c(FCUIActivityListContentView)) != nil);
-    BOOL containsAnySlider = containsSlider || containsSteppedSlider;
-
-    CGFloat W = self.bounds.size.width;
-    CGFloat H = self.bounds.size.height;
-    CGFloat minDim = fminf(W, H);
-
-    // --- Determine container radius ---
-    // Media module takes priority (it contains sliders internally when expanded)
-    BOOL isStandaloneSlider = containsAnySlider && !containsMedia;
-    CGFloat radius;
-    if (isStandaloneSlider) {
-        // Standalone sliders: fully rounded (half of shorter side) — never elliptic
-        radius = minDim / 2.0;
-    } else if (opened) {
-        radius = 65.0;
-    } else {
-        radius = getModuleRadius(self);
-    }
-
-    // --- Container border ---
-    // Suppress container border for media/slider/focus when expanded (they handle their own)
-    BOOL suppressContainerBorder = opened && (containsMedia || isStandaloneSlider || containsFocus);
-    CGFloat containerBorderWidth = suppressContainerBorder ? 0.0 : 2.0;
-
-    self.clipsToBounds = YES;
-    self.layer.cornerRadius = radius;
-    self.layer.continuousCorners = YES;
-    self.layer.borderWidth = containerBorderWidth;
-    self.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.3].CGColor;
-    self.layer.masksToBounds = YES;
-
-    // --- Slider inner views: fully rounded based on their own bounds ---
-    if (containsSlider) {
-        NSArray *sliders = findAllSubviewsOfClass(self, %c(CCUIContinuousSliderView));
-        for (UIView *slider in sliders) {
-            CGFloat sliderMin = fminf(slider.bounds.size.width, slider.bounds.size.height);
-            CGFloat sliderRadius = sliderMin / 2.0;
-            slider.layer.cornerRadius = sliderRadius;
-            slider.layer.continuousCorners = YES;
-            slider.clipsToBounds = YES;
-            // Only add border on standalone sliders, not sliders inside media
-            if (isStandaloneSlider) {
-                slider.layer.borderWidth = 1.0;
-                slider.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.3].CGColor;
-            }
-        }
-    }
-
-    // --- Stepped slider inner views (e.g. ringer toggle) ---
-    if (containsSteppedSlider) {
-        NSArray *steppedSliders = findAllSubviewsOfClass(self, %c(CCUISteppedSliderView));
-        for (UIView *slider in steppedSliders) {
-            CGFloat sliderMin = fminf(slider.bounds.size.width, slider.bounds.size.height);
-            CGFloat sliderRadius = sliderMin / 2.0;
-            slider.layer.cornerRadius = sliderRadius;
-            slider.layer.continuousCorners = YES;
-            slider.clipsToBounds = YES;
-        }
-    }
-
-    // --- MTMaterialView backgrounds: round to their own bounds ---
-    if (containsAnySlider) {
-        NSArray *materials = findAllSubviewsOfClass(self, %c(MTMaterialView));
-        for (UIView *mat in materials) {
-            CGFloat matMin = fminf(mat.bounds.size.width, mat.bounds.size.height);
-            mat.layer.cornerRadius = matMin / 2.0;
-            mat.layer.continuousCorners = YES;
-            mat.clipsToBounds = YES;
-        }
-    }
-
-    // --- Media module: single border on MRUNowPlayingView only when expanded ---
-    if (containsMedia && opened) {
-        UIView *npv = findSubviewOfClass(self, %c(MRUNowPlayingView));
-        if (npv) {
-            npv.layer.cornerRadius = 65.0;
-            npv.layer.continuousCorners = YES;
-            npv.layer.borderWidth = 2.0;
-            npv.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.3].CGColor;
-            npv.layer.masksToBounds = YES;
-        }
-    }
-
-    // --- Focus/Activity module ---
-    if (containsFocus) {
-        UIView *focus = findSubviewOfClass(self, %c(FCUIActivityControl));
-        if (focus) {
-            focus.layer.cornerRadius = 35.0;
-            focus.layer.continuousCorners = YES;
-            focus.layer.borderWidth = 2.0;
-            focus.layer.borderColor = [UIColor colorWithWhite:0.5 alpha:0.3].CGColor;
-            focus.layer.masksToBounds = YES;
-        }
-    }
-}
-%end
-
 %hook CCUIModularControlCenterOverlayViewController
 - (void)setPresentationState:(NSInteger)state {
     %orig;
@@ -712,7 +605,7 @@ static BOOL cc26ControlsLayoutInProgress = NO;
         UIButton *power = [view viewWithTag:998];
         if (!power) {
             NSDictionary *powerColorDict = [[NSUserDefaults standardUserDefaults] objectForKey:@"powerButtonColorDict" inDomain:domain];
-            UIColor *powerColor = (powerColorDict != nil) ? [UIColor colorWithRed:[powerColorDict[@"red"] floatValue] green:[powerColorDict[@"green"] floatValue] blue:[powerColorDict[@"blue"] floatValue] alpha:1.0] : [UIColor systemRedColor];
+            UIColor *powerColor = (powerColorDict != nil) ? [UIColor colorWithRed:[powerColorDict[@"red"] floatValue] green:[powerColorDict[@"green"] floatValue] blue:[powerColorDict[@"blue"] floatValue] alpha:1.0] : [UIColor whiteColor];
 
             power = [UIButton buttonWithType:UIButtonTypeSystem];
             power.tag = 998;
