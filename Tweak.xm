@@ -1,41 +1,6 @@
 #import "Tweak.h"
 #import "CC26Preferences/CC26LocalizableManager.h"
 
-#pragma mark - Border radius helpers
-
-CGFloat getModuleRadius(UIView *moduleView) {
-    CGFloat width = moduleView.frame.size.width;
-    CGFloat height = moduleView.frame.size.height;
-    if ((width < 100 && height < 100) && width == height) { // 1x1 module
-        return width / 2;
-    } else if ((width > height) || (height > width)) {
-        return fminf(width, height) / 2; // Rectangular module
-    } else if ((width > 100 && height > 100) && width == height) { // large square module
-        return width / 4;
-    } else  if (width > 100 && height > 100) { // 1x1 module
-        return width / 4;
-    }
-    return 0; // may need more cases for odd shaped modules such as CCSupport's 2x4 module
-}
-
-NSArray *findAllSubviewsOfClass(UIView *view, Class cls) {
-    NSMutableArray *result = [NSMutableArray array];
-    for (UIView *sub in view.subviews) {
-        if ([sub isKindOfClass:cls]) [result addObject:sub];
-        [result addObjectsFromArray:findAllSubviewsOfClass(sub, cls)];
-    }
-    return result;
-}
-
-UIView *findSubviewOfClass(UIView *view, Class cls) {
-    if ([view isKindOfClass:cls]) return view;
-    for (UIView *subview in view.subviews) {
-        UIView *match = findSubviewOfClass(subview, cls);
-        if (match) return match;
-    }
-    return nil;
-}
-
 #pragma mark - Media module helpers
 
 void adjustLabelFontsInView(UIView *view, BOOL isTitle) {
@@ -208,7 +173,7 @@ static void cc26_forceSubviewAlphas(UIView *view) {
 
     if (labelView) {
         CGFloat labelX = (prefLblX >= 0) ? prefLblX : 0.0;
-        CGFloat labelY = (prefLblY >= 0) ? prefLblY : 63.0;
+        CGFloat labelY = (prefLblY >= 0) ? prefLblY : 70.0;
         CGFloat labelW = (prefLblW >= 0) ? prefLblW : W;
         CGFloat labelH = (prefLblH >= 0) ? prefLblH : MAX(H - labelY, 35.0);
         labelView.translatesAutoresizingMaskIntoConstraints = YES;
@@ -503,7 +468,7 @@ static BOOL cc26ControlsLayoutInProgress = NO;
     if (transportView) {
         CGFloat controlsHeight = transportView.frame.size.height;
         if (controlsHeight < 20) controlsHeight = 44.0;
-        CGFloat controlsWidth = W * 0.75;
+        CGFloat controlsWidth = W;
         CGFloat x = (W - controlsWidth) / 2.0;
         CGFloat y = H - controlsHeight - pad;
         transportView.translatesAutoresizingMaskIntoConstraints = YES;
