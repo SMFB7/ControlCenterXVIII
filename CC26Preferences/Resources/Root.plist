@@ -106,6 +106,20 @@
 			<key>height</key>
 			<integer>56</integer>
 		</dict>
+		<dict>
+			<key>cell</key>
+			<string>PSButtonCell</string>
+			<key>cellClass</key>
+			<string>CC26CreditCell</string>
+			<key>label</key>
+			<string>SMFB7</string>
+			<key>subtitle</key>
+			<string>Fork creator</string>
+			<key>icon</key>
+			<string>person.crop.circle.fill</string>
+			<key>height</key>
+			<integer>56</integer>
+		</dict>
 	</array>
 	<key>title</key>
 	<string>CCXVIII</string>

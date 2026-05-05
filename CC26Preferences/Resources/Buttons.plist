@@ -54,7 +54,7 @@
             <key>height</key>
             <string>60</string>
             <key>fallbackColor</key>
-            <string>#FF3B30</string>
+            <string>#FFFFFF</string>
             <key>id</key>
             <string>powerButtonColor</string>
             <key>key</key>
