@@ -173,7 +173,7 @@ static void cc26_forceSubviewAlphas(UIView *view) {
 
     if (labelView) {
         CGFloat labelX = (prefLblX >= 0) ? prefLblX : 0.0;
-        CGFloat labelY = (prefLblY >= 0) ? prefLblY : 70.0;
+        CGFloat labelY = (prefLblY >= 0) ? prefLblY : 73.0;
         CGFloat labelW = (prefLblW >= 0) ? prefLblW : W;
         CGFloat labelH = (prefLblH >= 0) ? prefLblH : MAX(H - labelY, 35.0);
         labelView.translatesAutoresizingMaskIntoConstraints = YES;
