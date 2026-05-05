@@ -173,7 +173,7 @@ static void cc26_forceSubviewAlphas(UIView *view) {
 
     if (labelView) {
         CGFloat labelX = (prefLblX >= 0) ? prefLblX : 0.0;
-        CGFloat labelY = (prefLblY >= 0) ? prefLblY : 73.0;
+        CGFloat labelY = (prefLblY >= 0) ? prefLblY : 63.0;
         CGFloat labelW = (prefLblW >= 0) ? prefLblW : W;
         CGFloat labelH = (prefLblH >= 0) ? prefLblH : MAX(H - labelY, 35.0);
         labelView.translatesAutoresizingMaskIntoConstraints = YES;
@@ -468,7 +468,7 @@ static BOOL cc26ControlsLayoutInProgress = NO;
     if (transportView) {
         CGFloat controlsHeight = transportView.frame.size.height;
         if (controlsHeight < 20) controlsHeight = 44.0;
-        CGFloat controlsWidth = W;
+        CGFloat controlsWidth = W * 0.9;
         CGFloat x = (W - controlsWidth) / 2.0;
         CGFloat y = H - controlsHeight - pad;
         transportView.translatesAutoresizingMaskIntoConstraints = YES;
