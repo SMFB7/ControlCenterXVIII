@@ -17,6 +17,7 @@ static BOOL colorSliderGlyphs;
 static CGFloat mediaArtworkX = -1;
 static CGFloat mediaArtworkY = -1;
 static CGFloat mediaArtworkSize = -1;
+static CGFloat mediaControlsX = -1;
 static CGFloat mediaRoutingBtnX = -1;
 static CGFloat mediaRoutingBtnY = -1;
 static CGFloat mediaRoutingBtnSize = -1;

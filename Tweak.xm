@@ -443,6 +443,7 @@ static BOOL cc26ControlsLayoutInProgress = NO;
     CGFloat W = self.bounds.size.width;
     CGFloat H = self.bounds.size.height;
     CGFloat pad = 8.0;
+    CGFloat prefCtrlX = mediaControlsX;
 
     // Position headerView: top portion with padding
     UIView *headerView = nil;
@@ -466,9 +467,10 @@ static BOOL cc26ControlsLayoutInProgress = NO;
     if (transportIvar) transportView = object_getIvar(self, transportIvar);
 
     if (transportView) {
+        CGFloat ctrlX = (prefCtrlX >= 0) ? prefCtrlX : 0.9;
         CGFloat controlsHeight = transportView.frame.size.height;
         if (controlsHeight < 20) controlsHeight = 44.0;
-        CGFloat controlsWidth = W * 0.9;
+        CGFloat controlsWidth = W * ctrlX;
         CGFloat x = (W - controlsWidth) / 2.0;
         CGFloat y = H - controlsHeight - pad;
         transportView.translatesAutoresizingMaskIntoConstraints = YES;
