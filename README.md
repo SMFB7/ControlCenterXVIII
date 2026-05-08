@@ -1,4 +1,4 @@
-# CC26
+# CCXVIII
 
 An iOS 18-inspired Control Center tweak for jailbroken devices (iOS ~13–17). Fork of therealhoodboy's CC26. 
 This tweak should give you a fresh and modern CC. 
@@ -10,6 +10,11 @@ Only tested on iOS 15, iPhone 8 Plus.
 - **Colored slider glyphs** — customizable brightness and volume icons
 - **Top action buttons** — quick-access + (add) and power button with respring/UICache/userspace reboot
 - **Fully configurable** — adjust colors, positions, and toggle features from Settings
+
+## Changes from CC26
+
+- **Slightly more customizable** - change the Now Playing button padding and the top buttons' size (the latter needs a respring ATM)
+- **No borders** - the CC doesn't have any borders anymore and the default rounding is used (you can now override it with other tweaks)
 
 ## Compatibility
 

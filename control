@@ -1,6 +1,6 @@
 Package: com.smfb7.ccxviii
 Name: CCXVIII
-Version: 1.0.3
+Version: 1.1
 Architecture: iphoneos-arm
 Description: Fork of therealhoodboy's CC26 to remove the module rounding, borders, make the power button white by default, etc.
 Maintainer: SMFB7
