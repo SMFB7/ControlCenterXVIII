@@ -684,6 +684,8 @@ static void loadPreferences(CFNotificationCenterRef center, void *observer, CFSt
     mediaArtworkY = val ? [val floatValue] : -1;
     val = [[NSUserDefaults standardUserDefaults] objectForKey:@"mediaArtworkSize" inDomain:domain];
     mediaArtworkSize = val ? [val floatValue] : -1;
+    val = [[NSUserDefaults standardUserDefaults] objectForKey:@"mediaControlsX" inDomain:domain];
+    mediaControlsX = val ? [val floatValue] : -1;
     val = [[NSUserDefaults standardUserDefaults] objectForKey:@"mediaRoutingBtnX" inDomain:domain];
     mediaRoutingBtnX = val ? [val floatValue] : -1;
     val = [[NSUserDefaults standardUserDefaults] objectForKey:@"mediaRoutingBtnY" inDomain:domain];
