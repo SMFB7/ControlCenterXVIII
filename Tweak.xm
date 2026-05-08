@@ -532,7 +532,8 @@ static BOOL cc26ControlsLayoutInProgress = NO;
     %orig;
 
     UIView *view = self.view;
-    CGFloat iconSize = 14; // Kleinere Icons
+    CGFloat prefCtrlS = topControlsS;
+    CGFloat iconSize = (prefCtrlS >= 0) ? prefCtrlS : 14.0; // Check for custom icon size
     CGFloat buttonPadding = 6; // Button etwas größer für Touchfläche
     CGFloat buttonSize = iconSize + buttonPadding;
     CGFloat yOffset = 23;
@@ -676,7 +677,7 @@ static void loadPreferences(CFNotificationCenterRef center, void *observer, CFSt
     NSNumber *colorSliderGlyphsValue = (NSNumber *)[[NSUserDefaults standardUserDefaults] objectForKey:@"colorSliderGlyphs" inDomain:domain];
     colorSliderGlyphs = (colorSliderGlyphsValue) ? [colorSliderGlyphsValue boolValue] : YES;
 
-    // Media player position overrides (-1 = default)
+    // Position overrides (-1 = default)
     NSNumber *val;
     val = [[NSUserDefaults standardUserDefaults] objectForKey:@"mediaArtworkX" inDomain:domain];
     mediaArtworkX = val ? [val floatValue] : -1;
@@ -702,6 +703,8 @@ static void loadPreferences(CFNotificationCenterRef center, void *observer, CFSt
     mediaLabelH = val ? [val floatValue] : -1;
     val = [[NSUserDefaults standardUserDefaults] objectForKey:@"mediaLabelLineSpacing" inDomain:domain];
     mediaLabelLineSpacing = val ? [val floatValue] : 1.0;
+    val = [[NSUserDefaults standardUserDefaults] objectForKey:@"topControlsS" inDomain:domain];
+    topControlsS = val ? [val floatValue] : -1;
 }
 
 %ctor {

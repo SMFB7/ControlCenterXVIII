@@ -27,6 +27,9 @@ static CGFloat mediaLabelW = -1;
 static CGFloat mediaLabelH = -1;
 static CGFloat mediaLabelLineSpacing = 1.0;
 
+// top button override preferences (-1 = use default)
+static CGFloat topControlsS = -1;
+
 @interface NSUserDefaults (CC26)
 - (id)objectForKey:(NSString *)key inDomain:(NSString *)domain;
 - (void)setObject:(id)value forKey:(NSString *)key inDomain:(NSString *)domain;

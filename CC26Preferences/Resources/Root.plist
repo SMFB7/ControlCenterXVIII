@@ -50,7 +50,7 @@
             <key>height</key>
             <string>60</string>
             <key>label</key>
-            <string>Media Player</string>
+            <string>Position Tweaking</string>
         </dict>
 		<dict>
 			<key>cell</key>
